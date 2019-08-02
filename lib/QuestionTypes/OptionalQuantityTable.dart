@@ -78,7 +78,6 @@ class _OptionalQuantityTableState extends State<OptionalQuantityTable> {
                       controller: controllers[widget.possibilities[index]],
                       onChanged: (value){
                         Map<dynamic, int> newValue = map;
-                        print(value);
                         if(value==''){
                           newValue.removeWhere((k,v)=>k==widget.possibilities[index]);
                         }else {

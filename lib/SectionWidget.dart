@@ -54,7 +54,9 @@ class SectionWidgetState extends State<SectionWidget> {
     bool res = true;
   
     for(final q in questionsKeys){
-        if(! q.currentState.validate()) res = false;
+        try{
+          if(! q.currentState.validate()) res = false;
+        } catch(e) {}
     }
     return res;
   }

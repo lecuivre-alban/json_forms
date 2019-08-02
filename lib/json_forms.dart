@@ -38,7 +38,7 @@ class JsonForm {
       bool hideBar=false,
       bool showFormTitle=true,
       bool showSectionsNames=true,
-      GlobalKey<FormState> key,
+      GlobalKey<prefix0.FormState> key,
       Function(prefix1.Form) onValidation,
       Function(String) translator
     }

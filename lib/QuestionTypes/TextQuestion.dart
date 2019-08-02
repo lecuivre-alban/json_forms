@@ -25,7 +25,6 @@ class _TextQuestionState extends State<TextQuestion> {
   
   @override
   Widget build(BuildContext context) {
-    print(widget.controller.value);
     return Row(
       children: <Widget>[
         Expanded(

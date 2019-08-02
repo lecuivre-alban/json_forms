@@ -64,7 +64,9 @@ class FormState extends State<Form> {
   
   bool validate(){
     for(final section in sectionsKeys){
-      if(section.currentState.validate()==false) return false;
+      try{
+        if(section.currentState.validate()==false) return false;
+      }catch(e){}
     }
     return true;
   }

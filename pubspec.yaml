@@ -1,8 +1,8 @@
 name: json_forms
 description: A Flutter package that generate the widgets corresponding to a form using a json file
-version: 0.0.1
+version: 0.0.1+3
 author: Alban Lecuivre <lecuivre.alban@gmail.com>
-homepage: https://www.linkedin.com/in/alban-lecuivre-aa5080152/
+homepage: https://github.com/lecuivre-alban/json_forms
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

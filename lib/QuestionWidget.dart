@@ -46,7 +46,14 @@ class QuestionWidget extends StatefulWidget {
 
 class QuestionWidgetState extends State<QuestionWidget> {
 
+  QuestionController controller;
   bool _error = false;
+
+  @override
+  void initState() { 
+    super.initState();
+    controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
+  }
 
   bool validate(){
     if(! widget.question.validate()){
@@ -63,49 +70,43 @@ class QuestionWidgetState extends State<QuestionWidget> {
     Widget question;
     switch(widget.question.type){
       case QuestionTypes.Text:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
+        
         question = TextQuestion(
           placeholder: widget.question.placeholder,
           controller: controller,
         );
         break;
       case QuestionTypes.Number:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         question = NumberQuestion(
           placeholder: widget.question.placeholder,
           controller: controller,
         );
         break;
       case QuestionTypes.Bool:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         question = BoolQuestion(
           controller: controller,
           useSwitch: widget.useSwitch,
         );
         break;
       case QuestionTypes.Radio:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         question = RadioQuestion(
           possibilities: widget.question.possibilities,
           controller: controller,
         );
         break;
       case QuestionTypes.Pick:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         question = PickQuestion(
           controller: controller,
           possibilities: widget.question.possibilities,
         );
         break;
       case QuestionTypes.CheckTable:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         question = CheckTableQuestion(
           controller: controller,
           possibilities: widget.question.possibilities,
         );
         break;
       case QuestionTypes.OptionalQuantityTable:
-        QuestionController controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
         controller.addListener((){
           (controller.value as Map).removeWhere((k,v)=> v==null);
         });

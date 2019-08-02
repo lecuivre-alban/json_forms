@@ -23,57 +23,57 @@ Available question's types :
 Example of JSON file
 ```json
 { // Form Object
-	"name": "The form's name",
-	"sections": [ // List of Section objects
-		{
-			"name": "Name of the first section",
-			"questions": [ // List of Question Object
-				{
-					"id": 0,
-					"text": "What's your name ?",
-					"type": "Text",
-					"value": null,
-					"possibilities": null,
-					"condition": null,
-					"placeholder": "Name",
-					"invalidMessageKey": "The field is empty, please put your name",
-					"isRequired": true
-				},
-				{
-					"id": 1,
-					"text": "What's your gender ?",
-					"type": "Radio",
-					"value": "male",
-					"possibilities": [
-						"male",
-						"female"
-					],
-					"condition": null,
-					"invalidMessageKey": "empty",
-					"isRequired": false
-				},
-				{
-					"id": 2,
-					"text": "How old are you ?",
-					"type": "Number",
-					"value": null,
-					"possibilities": null,
-					"condition": {
-						"questionId": 1,
-						"value": "male"
-					},
-					"placeholder": "Your age",
-					"invalidMessageKey": "empty",
-					"isRequired": false
-				}
-			]
+  "name": "The form's name",
+  "sections": [ // List of Section objects
+    {
+      "name": "Name of the first section",
+	  "questions": [ // List of Question Object
+	    {
+		  "id": 0,
+		  "text": "What's your name ?",
+		  "type": "Text",
+		  "value": null,
+		  "possibilities": null,
+		  "condition": null,
+		  "placeholder": "Name",
+		  "invalidMessageKey": "The field is empty, please put your name",
+		  "isRequired": true
 		},
 		{
-			"name": "Name of the second section",
-			"questions":[
-				{
-					"id": 3,
-					"text": "Do you have any pets ?",
+		  "id": 1,
+		  "text": "What's your gender ?",
+		  "type": "Radio",
+		  "value": "male",
+		  "possibilities": [
+		    "male",
+			"female"
+		  ],
+		  "condition": null,
+		  "invalidMessageKey": "empty",
+		  "isRequired": false
+		},
+		{
+		  "id": 2,
+		  "text": "How old are you ?",
+		  "type": "Number",
+		  "value": null,
+		  "possibilities": null,
+		  "condition": {
+		    "questionId": 1,
+		    "value": "male"
+		  },
+		  "placeholder": "Your age",
+		  "invalidMessageKey": "empty",
+		  "isRequired": false
+		}
+	  ]
+	},
+	{
+	  "name": "Name of the second section",
+	  "questions":[
+	    {
+		  "id": 3,
+		  "text": "Do you have any pets ?",
 					"type": "CheckTable",
 					"value": ["cat", "snake"],
 					"possibilities": ["cat", "dog", "snake", "spider", "bird", "fish", "rabbit"],

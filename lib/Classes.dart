@@ -100,7 +100,6 @@ class QuestionController extends ChangeNotifier{
   get value => _value;
 
   set value(dynamic v){
-    print(v);
     _value = v;
     _question.value = v;
     notifyListeners();
