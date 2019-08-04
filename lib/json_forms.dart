@@ -1,7 +1,9 @@
 library json_forms;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Classes.dart' as prefix1;
+import 'FormProvider.dart';
 import 'FormWidget.dart' as prefix0;
 
 class JsonForm {
@@ -26,7 +28,7 @@ class JsonForm {
   /// 
   /// [onValidation] Function called when the last section have been validated
   /// (Used if [hideBar]=false)
-  static prefix0.Form fromJson(
+  static Widget fromJson(
     Map<String, dynamic> json,
     {
       Color progressColor=Colors.white,
@@ -43,20 +45,26 @@ class JsonForm {
       Function(String) translator
     }
   ){
-    return prefix0.Form(
-      key: key,
-      form: prefix1.Form.fromJson(json),
-      progressColor: progressColor,
-      primaryColor: primaryColor,
-      decoration: decoration,
-      innerPadding: innerPadding,
-      outterPadding: outterPadding,
-      useSwitch: useSwitch,
-      hideBar: hideBar,
-      showFormTitle: showFormTitle,
-      showSectionsTitles: showSectionsNames,
-      onValidation: onValidation,
-      translator: translator,
+    return ChangeNotifierProvider<FormProvider>(
+      builder: (_){
+        final provider = FormProvider();
+        provider.init(json);
+        return provider;
+      },
+      child: prefix0.Form(
+        key: key,
+        progressColor: progressColor,
+        primaryColor: primaryColor,
+        decoration: decoration,
+        innerPadding: innerPadding,
+        outterPadding: outterPadding,
+        useSwitch: useSwitch,
+        hideBar: hideBar,
+        showFormTitle: showFormTitle,
+        showSectionsTitles: showSectionsNames,
+        onValidation: onValidation,
+        translator: translator,
+      )
     );
   }
 }

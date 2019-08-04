@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'Classes.dart';
 
+import 'FormProvider.dart';
 import 'QuestionTypes/TextQuestion.dart';
 import 'QuestionTypes/NumberQuestion.dart';
 import 'QuestionTypes/BoolQuestion.dart';
@@ -46,14 +48,7 @@ class QuestionWidget extends StatefulWidget {
 
 class QuestionWidgetState extends State<QuestionWidget> {
 
-  QuestionController controller;
   bool _error = false;
-
-  @override
-  void initState() { 
-    super.initState();
-    controller = QuestionController(sectionKey: widget.parentKey,question: widget.question);
-  }
 
   bool validate(){
     if(! widget.question.validate()){
@@ -70,48 +65,44 @@ class QuestionWidgetState extends State<QuestionWidget> {
     Widget question;
     switch(widget.question.type){
       case QuestionTypes.Text:
-        
         question = TextQuestion(
           placeholder: widget.question.placeholder,
-          controller: controller,
+          qkey: widget.key,
         );
         break;
       case QuestionTypes.Number:
         question = NumberQuestion(
           placeholder: widget.question.placeholder,
-          controller: controller,
+          qkey: widget.key
         );
         break;
       case QuestionTypes.Bool:
         question = BoolQuestion(
-          controller: controller,
+          qkey: widget.key,
           useSwitch: widget.useSwitch,
         );
         break;
       case QuestionTypes.Radio:
         question = RadioQuestion(
           possibilities: widget.question.possibilities,
-          controller: controller,
+          qkey: widget.key
         );
         break;
       case QuestionTypes.Pick:
         question = PickQuestion(
-          controller: controller,
+          qkey: widget.key,
           possibilities: widget.question.possibilities,
         );
         break;
       case QuestionTypes.CheckTable:
         question = CheckTableQuestion(
-          controller: controller,
+          qkey: widget.key,
           possibilities: widget.question.possibilities,
         );
         break;
       case QuestionTypes.OptionalQuantityTable:
-        controller.addListener((){
-          (controller.value as Map).removeWhere((k,v)=> v==null);
-        });
         question = OptionalQuantityTable(
-          controller: controller,
+          qkey: widget.key,
           possibilities: widget.question.possibilities,
         );
         break;
@@ -185,11 +176,10 @@ class QuestionWidgetState extends State<QuestionWidget> {
           ),
         ),
       );
-    }
-    
+    }        
   }
 
-  _errorWidget() => Padding(
+    _errorWidget() => Padding(
     padding: const EdgeInsets.only(top: 2.0),
     child: Row(
       children: <Widget>[

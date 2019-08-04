@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'Classes.dart';
+import 'FormProvider.dart';
 import 'QuestionWidget.dart';
 
 class SectionWidget extends StatefulWidget {
-  SectionWidget(this.section, {
+  SectionWidget(this.i, {
     Key key,
     this.decoration,
     this.innerPadding,
@@ -15,7 +19,7 @@ class SectionWidget extends StatefulWidget {
   }) : super(key: key);
 
 
-  final Section section;
+  final int i;
   /// BoxDecoration for the question
   final BoxDecoration decoration;
   /// Padding between [decoration] and question content
@@ -34,14 +38,7 @@ class SectionWidget extends StatefulWidget {
 
 class SectionWidgetState extends State<SectionWidget> {
 
-  List<GlobalKey<QuestionWidgetState>> questionsKeys = <GlobalKey<QuestionWidgetState>>[];
   List<Widget> questions;
-
-  @override
-  void initState() { 
-    super.initState();
-    widget.section.questions.forEach((_)=>questionsKeys.add(GlobalKey<QuestionWidgetState>()));  
-  }
 
   @override
   void didChangeDependencies() {
@@ -49,32 +46,34 @@ class SectionWidgetState extends State<SectionWidget> {
   }
 
   refresh() => setState((){});
+  
 
   bool validate(){
     bool res = true;
   
-    for(final q in questionsKeys){
+    for(final q in Provider.of<FormProvider>(context).questionsKey[widget.key]){
         try{
           if(! q.currentState.validate()) res = false;
-        } catch(e) {}
+        } catch(e) {print(e);}
     }
     return res;
   }
 
   List<Widget> createQuestions(){
     return List.generate(
-      widget.section.questions.length, 
+      Provider.of<FormProvider>(context).form.sections[widget.i].questions.length, 
       (index){
-        final question = widget.section.questions[index];
+        final question = Provider.of<FormProvider>(context).form.sections[widget.i].questions[index];
         if(question.condition != null){
           final questionId = question.condition.questionId;
           final conditionValue = question.condition.value;
-          if(widget.section.questions.where(
+          if(Provider.of<FormProvider>(context).form.sections[widget.i].questions.where(
             (e) => e.id == questionId
           ).first.hasValue(conditionValue)){
             return QuestionWidget(
               parentKey: widget.key,
-              question: widget.section.questions[index],
+              key: Provider.of<FormProvider>(context).questionsKey[widget.key][index],
+              question: Provider.of<FormProvider>(context).form.sections[widget.i].questions[index],
               decoration: widget.decoration,
               innerPadding: widget.innerPadding,
               outterPadding: widget.outterPadding,
@@ -86,9 +85,9 @@ class SectionWidgetState extends State<SectionWidget> {
           }
         } else {
           return QuestionWidget(
-            key: questionsKeys[index],
+            key: Provider.of<FormProvider>(context).questionsKey[widget.key][index],
             parentKey: widget.key,
-            question: widget.section.questions[index],
+            question: Provider.of<FormProvider>(context).form.sections[widget.i].questions[index],
             decoration: widget.decoration,
             innerPadding: widget.innerPadding,
             outterPadding: widget.outterPadding,
@@ -103,12 +102,12 @@ class SectionWidgetState extends State<SectionWidget> {
   @override
   Widget build(BuildContext context) {
     questions = createQuestions();
-
+    print(jsonEncode(Provider.of<FormProvider>(context).form));
     return Column(
       children: <Widget>[
         ( widget.showSectionTitle ? Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(widget.section.name,
+          child: Text(Provider.of<FormProvider>(context).form.sections[widget.i].name,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 20

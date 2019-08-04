@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import '../Classes.dart';
+import 'package:provider/provider.dart';
+import '../FormProvider.dart';
+import '../QuestionWidget.dart';
 
 /* Question of type QuestionType.Bool */
 class BoolQuestion extends StatefulWidget {
   BoolQuestion(
     {
       Key key,
-      @required this.controller,
+      @required this.qkey,
       @required this.useSwitch
     }
   ) : super(key: key);
 
-  final QuestionController controller;
+  final GlobalKey<QuestionWidgetState> qkey;
   final bool useSwitch;
 
   _BoolQuestionState createState() => _BoolQuestionState();
@@ -19,35 +21,30 @@ class BoolQuestion extends StatefulWidget {
 
 class _BoolQuestionState extends State<BoolQuestion> {
 
-  bool boolValue;
-
-  @override
-  void initState() { 
-    super.initState();
-    boolValue = widget.controller.value;
-  }
   @override
   Widget build(BuildContext context) {
-    return ( widget.useSwitch ?
-      Switch(
-        value: boolValue,
-        onChanged: (value){
-          setState(() {
-            boolValue = value;
-          });
-          widget.controller.value = value;
-        },
-      )
-      :
-      Checkbox(
-        value: boolValue,
-        onChanged: (value){
-          setState(() {
-            boolValue = value;
-          });
-          widget.controller.value = value;
-        },
-      )
+    return Consumer<FormProvider>(
+      builder: (context, formProvider, _widget){
+        return ( widget.useSwitch ?
+          Switch(
+            value: formProvider.controllers[widget.qkey].value,
+            onChanged: (value){
+              setState(() {
+              });
+              formProvider.controllers[widget.qkey].value = value;
+            },
+          )
+          :
+          Checkbox(
+            value: formProvider.controllers[widget.qkey].value,
+            onChanged: (value){
+              setState(() {
+              });
+              formProvider.controllers[widget.qkey].value = value;
+            },
+          )
+        );
+      },
     );
   }
 }

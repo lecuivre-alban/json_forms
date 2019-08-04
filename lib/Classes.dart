@@ -91,6 +91,7 @@ class QuestionController extends ChangeNotifier{
   Question _question;
   dynamic _value;
   GlobalKey<SectionWidgetState> _sectionKey;
+  
   QuestionController({GlobalKey<SectionWidgetState> sectionKey, Question question}):_question=question, _value=question.value,_sectionKey=sectionKey{
     this.addListener((){
       _sectionKey.currentState.refresh();

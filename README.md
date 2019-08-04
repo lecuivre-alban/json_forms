@@ -74,21 +74,21 @@ Example of JSON file
 	    {
 		  "id": 3,
 		  "text": "Do you have any pets ?",
-					"type": "CheckTable",
-					"value": ["cat", "snake"],
-					"possibilities": ["cat", "dog", "snake", "spider", "bird", "fish", "rabbit"],
-					"condition": null,
-					"invalidMessageKey": "empty",
-					"isRequired": false
-				},
-				{
-					"id": 4,
-					"text": "What is the color of your fish ?",
-					"type": "Pick",
-					"value": "blue",
-					"possibilities": ["blue", "black", "red", "yellow", "green"],
-					"condition": {
-						"questionId": 3,
+		  "type": "CheckTable",
+		  "value": ["cat", "snake"],
+		  "possibilities": ["cat", "dog", "snake", "spider", "bird", "fish", "rabbit"],
+		  "condition": null,
+		  "invalidMessageKey": "empty",
+		  "isRequired": false
+		},
+		{
+		  "id": 4,
+		  "text": "What is the color of your fish ?",
+		  "type": "Pick",
+		  "value": "blue",
+		  "possibilities": ["blue", "black", "red", "yellow", "green"],
+		  "condition": {
+		  "questionId": 3,
 						"value": "fish"
 					},
 					"invalidMessageKey": "empty",
