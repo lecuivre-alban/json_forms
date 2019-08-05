@@ -36,13 +36,15 @@ class _CheckTableQuestionState extends State<CheckTableQuestion> {
                     Checkbox(
                       value: (formProvider.controllers[widget.qkey].value as List)?.contains(widget.possibilities[index]) ?? formProvider.controllers[widget.qkey].value == widget.possibilities[index],
                       onChanged: (value){
-                        List checked = formProvider.controllers[widget.qkey].value?.toList() ?? List();
-                        if(value){
-                          checked.add(widget.possibilities[index]);
-                        } else {
-                          checked.removeWhere((e) => e==widget.possibilities[index]);
+                        if(formProvider.controllers[widget.qkey].readOnly==false){
+                          List checked = formProvider.controllers[widget.qkey].value?.toList() ?? List();
+                          if(value){
+                            checked.add(widget.possibilities[index]);
+                          } else {
+                            checked.removeWhere((e) => e==widget.possibilities[index]);
+                          }
+                          formProvider.controllers[widget.qkey].value = checked;
                         }
-                        formProvider.controllers[widget.qkey].value = checked;
                       },
                     )
                   ],

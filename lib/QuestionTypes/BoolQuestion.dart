@@ -29,18 +29,23 @@ class _BoolQuestionState extends State<BoolQuestion> {
           Switch(
             value: formProvider.controllers[widget.qkey].value,
             onChanged: (value){
-              setState(() {
-              });
-              formProvider.controllers[widget.qkey].value = value;
+              if(formProvider.controllers[widget.qkey].readOnly==false){
+                setState(() {
+                });
+                formProvider.controllers[widget.qkey].value = value;
+              }
+              
             },
           )
           :
           Checkbox(
             value: formProvider.controllers[widget.qkey].value,
             onChanged: (value){
-              setState(() {
-              });
-              formProvider.controllers[widget.qkey].value = value;
+              if(formProvider.controllers[widget.qkey].readOnly==false){
+                setState(() {
+                });
+                formProvider.controllers[widget.qkey].value = value;
+              }
             },
           )
         );

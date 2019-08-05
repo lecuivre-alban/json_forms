@@ -91,15 +91,21 @@ class QuestionController extends ChangeNotifier{
   Question _question;
   dynamic _value;
   GlobalKey<SectionWidgetState> _sectionKey;
-  
-  QuestionController({GlobalKey<SectionWidgetState> sectionKey, Question question}):_question=question, _value=question.value,_sectionKey=sectionKey{
+  bool _readOnly;
+
+  QuestionController(
+    {GlobalKey<SectionWidgetState> sectionKey, 
+    Question question,
+    bool readOnly
+    }):_question=question, _value=question.value,_sectionKey=sectionKey, _readOnly=readOnly{
     this.addListener((){
       _sectionKey.currentState.refresh();
     });
   }
 
   get value => _value;
-
+  get readOnly => _readOnly;
+  
   set value(dynamic v){
     _value = v;
     _question.value = v;

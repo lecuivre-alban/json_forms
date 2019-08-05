@@ -42,13 +42,14 @@ class JsonForm {
       bool showSectionsNames=true,
       GlobalKey<prefix0.FormState> key,
       Function(prefix1.Form) onValidation,
-      Function(String) translator
+      Function(String) translator,
+      bool readOnly=false
     }
   ){
     return ChangeNotifierProvider<FormProvider>(
       builder: (_){
         final provider = FormProvider();
-        provider.init(json);
+        provider.init(json, readOnly);
         return provider;
       },
       child: prefix0.Form(
@@ -63,7 +64,7 @@ class JsonForm {
         showFormTitle: showFormTitle,
         showSectionsTitles: showSectionsNames,
         onValidation: onValidation,
-        translator: translator,
+        translator: translator
       )
     );
   }

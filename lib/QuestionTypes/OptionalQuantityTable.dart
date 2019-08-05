@@ -65,17 +65,19 @@ class _OptionalQuantityTableState extends State<OptionalQuantityTable> {
                     Checkbox(
                       value: map?.keys?.contains(widget.possibilities[index]) ?? false,
                       onChanged: (value){
-                        Map<dynamic, int> checked = map ?? Map<dynamic,int>();
-                        if(value){
-                          checked[widget.possibilities[index]] = null ;
-                        } else {
-                          checked.removeWhere((k,v)=> k==widget.possibilities[index]);
-                          controllers[widget.possibilities[index]].text='';
-                          formProvider.controllers[widget.qkey].value = checked;
+                        if(formProvider.controllers[widget.qkey].readOnly==false){
+                          Map<dynamic, int> checked = map ?? Map<dynamic,int>();
+                          if(value){
+                            checked[widget.possibilities[index]] = null ;
+                          } else {
+                            checked.removeWhere((k,v)=> k==widget.possibilities[index]);
+                            controllers[widget.possibilities[index]].text='';
+                            formProvider.controllers[widget.qkey].value = checked;
+                          }
+                          setState(() {
+                            map = checked;
+                          });
                         }
-                        setState(() {
-                          map = checked;
-                        });
                       },
                     ),
                     Padding(
@@ -86,6 +88,7 @@ class _OptionalQuantityTableState extends State<OptionalQuantityTable> {
                       map?.keys?.contains(widget.possibilities[index]) ?? false ?
                       Expanded(
                         child: TextField(
+                          readOnly: formProvider.controllers[widget.qkey].readOnly,
                           keyboardType: TextInputType.number,
                           controller: controllers[widget.possibilities[index]],
                           onChanged: (value){

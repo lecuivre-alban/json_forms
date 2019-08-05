@@ -37,6 +37,7 @@ class _NumberQuestionState extends State<NumberQuestion> {
           children: <Widget>[
             Expanded(
               child: TextField(
+                readOnly: formProvider.controllers[widget.qkey].readOnly,
                 keyboardType: TextInputType.number,
                 controller: controller,
                 decoration: InputDecoration(

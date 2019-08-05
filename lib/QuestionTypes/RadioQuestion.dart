@@ -41,10 +41,12 @@ class _RadioQuestionState extends State<RadioQuestion> {
                       value: widget.possibilities[index],
                       groupValue: selectedValue,
                       onChanged: (value){
-                        setState(() {
-                          selectedValue = value;
-                        });
-                        formProvider.controllers[widget.qkey].value = value;
+                        if(formProvider.controllers[widget.qkey].readOnly==false){
+                          setState(() {
+                            selectedValue = value;
+                          });
+                          formProvider.controllers[widget.qkey].value = value;
+                        }
                       },
                     ),
                   ],

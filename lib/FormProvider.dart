@@ -23,11 +23,11 @@ class FormProvider extends ChangeNotifier {
     > get questionsKey => _questions;
   Map<GlobalKey<QuestionWidgetState>,classes.QuestionController> get controllers => _controllers;
 
-  void init(Map<String, dynamic> json){
-    setForm(json);
+  void init(Map<String, dynamic> json, bool readOnly){
+    setForm(json, readOnly);
   }
 
-  void setForm(Map<String, dynamic> json){
+  void setForm(Map<String, dynamic> json, bool readOnly){
     _form = classes.Form.fromJson(json);
 
     _sections = List();
@@ -42,7 +42,7 @@ class FormProvider extends ChangeNotifier {
         final qkey = GlobalKey<QuestionWidgetState>();
         _questions[skey].add(qkey);
         print('Question $i $j : ${_form.sections[i].questions[j]}');
-        classes.QuestionController qcontroller = classes.QuestionController(sectionKey: skey, question: _form.sections[i].questions[j]);
+        classes.QuestionController qcontroller = classes.QuestionController(sectionKey: skey, question: _form.sections[i].questions[j],  readOnly: readOnly);
         _controllers.putIfAbsent(qkey, () => qcontroller);
       }
     }

@@ -36,6 +36,7 @@ class _TextQuestionState extends State<TextQuestion> {
           children: <Widget>[
             Expanded(
               child: TextField(
+                readOnly: formProvider.controllers[widget.qkey].readOnly,
                 controller: controller,
                 decoration: InputDecoration(
                   hintText: widget.placeholder ?? ''

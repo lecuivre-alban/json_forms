@@ -38,9 +38,11 @@ class _PickQuestionState extends State<PickQuestion> {
                 }
               ),
               onChanged: (value){
-                setState(() {
-                  formProvider.controllers[widget.qkey].value = value;
-                });
+                if(formProvider.controllers[widget.qkey].value==false){
+                  setState(() {
+                    formProvider.controllers[widget.qkey].value = value;
+                  });
+                }
               },
             )
           ],
